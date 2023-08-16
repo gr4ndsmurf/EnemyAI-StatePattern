@@ -6,9 +6,11 @@ public class EnemyAttack : EnemyState
 {
     public EnemyChase chase;
 
+    [SerializeField] private Transform target;
+    [SerializeField] private float chaseDistance;
     public override EnemyState State(EnemyController controller)
     {
-        if (!true)
+        if (Vector2.Distance(controller.transform.position, target.position) > chaseDistance)
         {
             controller.animator.SetBool("Chase", true);
             controller.animator.SetBool("Attack", false);

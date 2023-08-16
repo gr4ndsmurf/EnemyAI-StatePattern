@@ -4,17 +4,13 @@ using UnityEngine;
 
 public class EnemyChase : EnemyState
 {
-    public EnemyIdle idle;
     public EnemyAttack attack;
 
+    [SerializeField] private float attackDistance;
+    [SerializeField] private Transform target;
     public override EnemyState State(EnemyController controller)
     {
-        if (!true)
-        {
-            controller.animator.SetBool("Chase", false);
-            return idle;
-        }
-        else if (true)
+        if (Vector2.Distance(controller.transform.position, target.position) < attackDistance)
         {
             controller.animator.SetBool("Attack", true);
             return attack;
