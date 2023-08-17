@@ -45,9 +45,11 @@ public class EnemyAttack : EnemyState
             controller.transform.localScale = new Vector3(1.25f, 1.25f, 1.25f);
         }
 
-        //Attack Codes
+        //Look at target
         Vector2 direction = new Vector2(target.transform.position.x - controller.transform.position.x, target.transform.position.y - controller.transform.position.y);
         controller.transform.up = Vector3.Lerp(controller.transform.up, direction, controller.damping);
+
+        //Attack
         if (shootingDelayed == false)
         {
             shootingDelayed = true;
