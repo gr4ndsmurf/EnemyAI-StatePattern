@@ -40,6 +40,9 @@ public class EnemyIdle : EnemyState
                 patrolDestination = 0;
             }
         }
+
+        controller.transform.rotation = Quaternion.Euler(0, 0, 0);
+
         return this;
     }
 
