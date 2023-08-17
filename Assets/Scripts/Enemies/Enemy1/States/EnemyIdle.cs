@@ -49,4 +49,11 @@ public class EnemyIdle : EnemyState
         localScale.x *= -1;
         transform.localScale = localScale;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(patrolPoints[0].transform.position, 0.5f);
+        Gizmos.DrawWireSphere(patrolPoints[1].transform.position, 0.5f);
+        Gizmos.DrawLine(patrolPoints[0].transform.position, patrolPoints[1].transform.position);
+    }
 }
