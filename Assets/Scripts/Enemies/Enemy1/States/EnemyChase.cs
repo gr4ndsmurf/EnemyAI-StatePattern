@@ -16,7 +16,9 @@ public class EnemyChase : EnemyState
             return attack;
         }
 
-        //Chase Codes
+        //Chase codes
+        Vector2 direction = new Vector2(target.transform.position.x - controller.transform.position.x, target.transform.position.y - controller.transform.position.y);
+        controller.transform.up = Vector3.Lerp(controller.transform.up, direction, controller.damping);
 
         return this;
     }

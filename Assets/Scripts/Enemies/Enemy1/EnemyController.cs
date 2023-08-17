@@ -8,6 +8,10 @@ public class EnemyController : MonoBehaviour
     public Animator animator;
     public float speed;
 
+    public float damping;
+
+    public GameObject bullet;
+    public Transform gunPoint;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();

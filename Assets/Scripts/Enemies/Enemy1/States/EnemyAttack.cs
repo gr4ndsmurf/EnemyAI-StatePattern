@@ -14,6 +14,8 @@ public class EnemyAttack : EnemyState
 
     [SerializeField] private AIDestinationSetter aiDestinationSetter;
     [SerializeField] private Transform movebackPoint;
+
+    private bool shootingDelayed;
     public override EnemyState State(EnemyController controller)
     {
         if (Vector2.Distance(controller.transform.position, target.position) > chaseDistance)
@@ -26,7 +28,7 @@ public class EnemyAttack : EnemyState
         if (Vector2.Distance(controller.transform.position, target.position) < 3f)
         {
             aiDestinationSetter.target = movebackPoint;
-            aiPath.maxSpeed = controller.speed * 4f;
+            aiPath.maxSpeed = controller.speed * 8f;
         }
         else
         {
@@ -44,8 +46,20 @@ public class EnemyAttack : EnemyState
         }
 
         //Attack Codes
-        
-
+        Vector2 direction = new Vector2(target.transform.position.x - controller.transform.position.x, target.transform.position.y - controller.transform.position.y);
+        controller.transform.up = Vector3.Lerp(controller.transform.up, direction, controller.damping);
+        if (shootingDelayed == false)
+        {
+            shootingDelayed = true;
+            Instantiate(controller.bullet, controller.gunPoint.position, controller.transform.rotation);
+            StartCoroutine(shootingCooldown());
+        }
         return this;
+    }
+
+    IEnumerator shootingCooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        shootingDelayed = false;
     }
 }
