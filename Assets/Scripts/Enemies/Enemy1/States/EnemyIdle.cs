@@ -4,22 +4,17 @@ using UnityEngine;
 
 public class EnemyIdle : EnemyState
 {
-    [Header("Chase")]
-    [SerializeField] private EnemyChase chase;
-    [SerializeField] private Transform target;
-    [SerializeField] private float chaseDistance;
-
-    [Header("Patrol")]
+    [SerializeField] private float chaseDistance = 3.5f;
     [SerializeField] private Transform[] patrolPoints;
 
     private int patrolDestination;
     
     public override EnemyState State(EnemyController controller)
     {
-        if (Vector2.Distance(controller.transform.position, target.position) < chaseDistance)
+        if (Vector2.Distance(controller.transform.position, controller.target.position) < chaseDistance)
         {
             controller.animator.SetBool("Chase", true);
-            return chase;
+            return controller.chase;
         }
 
         if (patrolDestination == 0)
