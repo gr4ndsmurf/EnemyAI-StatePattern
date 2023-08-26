@@ -25,7 +25,7 @@ The modular design of the AI system enables easy customization of AI states, beh
 
 The AI's movement and actions are accompanied by smooth animations, enhancing the overall gameplay experience.
 
-## Getting Started
+## Customization
 To customize the Enemy AI's behavior, you can:
 
 - Add new states by creating classes that inherit from AIState and implementing the necessary logic for each state.
