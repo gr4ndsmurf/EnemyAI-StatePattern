@@ -13,9 +13,12 @@ public class Enemy2Chase : Enemy2State
             controller.animator.SetBool("Attack", true);
             return controller.attack;
         }
+
         //Chase Codes
-
-
+        if (controller.TargetInDistance() && controller.followEnabled)
+        {
+            controller.PathFollow();
+        }
 
         return this;
     }

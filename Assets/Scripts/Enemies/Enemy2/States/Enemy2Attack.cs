@@ -16,9 +16,23 @@ public class Enemy2Attack : Enemy2State
             controller.animator.SetBool("Attack", false);
             return controller.chase;
         }
+
         //Attack Codes
+        if (controller.TargetInDistance() && controller.followEnabled)
+        {
+            controller.PathFollow();
+        }
 
-
+        if (Vector2.Distance(controller.transform.position,controller.target.position) <= 5f)
+        {
+            controller.followEnabled = false;
+            controller.rb.mass = 50f;
+        }
+        else
+        {
+            controller.followEnabled = true;
+            controller.rb.mass = 1f;
+        }
 
         //Shooting
         if (shootingDelayed == false)
@@ -27,6 +41,7 @@ public class Enemy2Attack : Enemy2State
             Instantiate(controller.bullet, controller.gunPoint.position, controller.transform.rotation);
             StartCoroutine(shootingCooldown());
         }
+
         return this;
     }
 

@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody2D bulletRB;
     [SerializeField] private float bulletSpeed;
+
     private void Start()
     {
         bulletRB = GetComponent<Rigidbody2D>();
