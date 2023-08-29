@@ -34,6 +34,25 @@ public class Enemy2Attack : Enemy2State
             controller.rb.mass = 1f;
         }
 
+        //Weapon Aim
+        Vector2 direction = new Vector2(controller.target.transform.position.x - controller.gunPoint.transform.position.x, controller.target.transform.position.y - controller.gunPoint.transform.position.y);
+        controller.gunPoint.transform.right = Vector3.Lerp(controller.gunPoint.transform.right, direction, controller.damping);
+        //Flip weapon
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Vector3 armPointLocalScale = controller.gunPoint.transform.localScale;
+        if (angle > 90 || angle < -90)
+        {
+            armPointLocalScale.x = -0.8f;
+            armPointLocalScale.y = -0.14f;
+        }
+        else
+        {
+
+            armPointLocalScale.x = +0.8f;
+            armPointLocalScale.y = +0.14f;
+        }
+        controller.gunPoint.transform.localScale = armPointLocalScale;
+
         //Shooting
         if (shootingDelayed == false)
         {
@@ -44,6 +63,8 @@ public class Enemy2Attack : Enemy2State
 
         return this;
     }
+
+    
 
     IEnumerator shootingCooldown()
     {

@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        bulletRB.velocity = transform.up * bulletSpeed;
+        bulletRB.velocity = transform.right * bulletSpeed;
         StartCoroutine(BulletRange());
     }
 
