@@ -34,6 +34,21 @@ public class Enemy2Attack : Enemy2State
             controller.rb.mass = 1f;
         }
 
+        WeaponAiming(controller);
+
+        //Shooting
+        if (shootingDelayed == false)
+        {
+            shootingDelayed = true;
+            Instantiate(controller.bullet, controller.gunPoint.position, controller.transform.rotation);
+            StartCoroutine(shootingCooldown());
+        }
+
+        return this;
+    }
+
+    private void WeaponAiming(Enemy2Controller controller)
+    {
         //Weapon Aim
         Vector2 direction = new Vector2(controller.target.transform.position.x - controller.gunPoint.transform.position.x, controller.target.transform.position.y - controller.gunPoint.transform.position.y);
         controller.gunPoint.transform.right = Vector3.Lerp(controller.gunPoint.transform.right, direction, controller.damping);
@@ -52,19 +67,7 @@ public class Enemy2Attack : Enemy2State
             armPointLocalScale.y = +0.14f;
         }
         controller.gunPoint.transform.localScale = armPointLocalScale;
-
-        //Shooting
-        if (shootingDelayed == false)
-        {
-            shootingDelayed = true;
-            Instantiate(controller.bullet, controller.gunPoint.position, controller.transform.rotation);
-            StartCoroutine(shootingCooldown());
-        }
-
-        return this;
     }
-
-    
 
     IEnumerator shootingCooldown()
     {
