@@ -34,10 +34,19 @@ public class Enemy2Controller : MonoBehaviour
 
     [Header("WeaponSystem")]
     public float damping = 0.01f;
-    public GameObject bullet;
-    public Transform gunPoint;
 
-    
+    [SerializeField] private int POOL_SIZE = 10;
+    public GameObject bulletPrefab;
+    public Transform firePointTransform;
+    public float bulletSpeed = 15f;
+    public float shootingTime = 0.5f;
+    public float shootingDelay = 0.5f;
+
+    public Queue<GameObject> bulletPool;
+
+    public Transform armPoint;
+
+
     public Rigidbody2D rb;
     public Animator animator;
 
@@ -49,6 +58,16 @@ public class Enemy2Controller : MonoBehaviour
         speed = idleSpeed;
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
+
+        //Object Pool
+        bulletPool = new Queue<GameObject>();
+
+        for (int i = 0; i < POOL_SIZE; i++)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, Vector3.zero, Quaternion.identity);
+            bullet.SetActive(false);
+            bulletPool.Enqueue(bullet);
+        }
     }
 
     private void UpdatePath()
@@ -125,5 +144,47 @@ public class Enemy2Controller : MonoBehaviour
             path = p;
             currentWaypoint = 0;
         }
+    }
+
+    //Object Pooling
+    public void HandleShooting()
+    {
+        GameObject bullet = GetBulletFromPool();
+
+        Vector3 shootDirection = (target.position - transform.position).normalized;
+        if (bullet != null)
+        {
+            bullet.transform.position = firePointTransform.position;
+            bullet.SetActive(true);
+
+            Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+            bulletRigidbody.velocity = shootDirection * bulletSpeed;
+
+            StartCoroutine(DisableBulletAfterDelay(bullet, 2f));
+        }
+    }
+
+    private IEnumerator DisableBulletAfterDelay(GameObject bullet, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ReturnBulletToPool(bullet);
+    }
+
+    private GameObject GetBulletFromPool()
+    {
+        if (bulletPool.Count > 0)
+        {
+            GameObject bullet = bulletPool.Dequeue();
+            bullet.SetActive(true);
+            return bullet;
+        }
+
+        return null;
+    }
+
+    private void ReturnBulletToPool(GameObject bullet)
+    {
+        bullet.SetActive(false);
+        bulletPool.Enqueue(bullet);
     }
 }

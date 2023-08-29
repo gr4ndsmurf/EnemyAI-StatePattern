@@ -675,8 +675,13 @@ MonoBehaviour:
   jumpEnabled: 1
   directionLookEnabled: 1
   damping: 1
-  bullet: {fileID: 3183704568916462335, guid: 48f60f97f5c9e494b9db182686deb6ba, type: 3}
-  gunPoint: {fileID: 1819769092069063907}
+  POOL_SIZE: 10
+  bulletPrefab: {fileID: 3183704568916462335, guid: 48f60f97f5c9e494b9db182686deb6ba, type: 3}
+  firePointTransform: {fileID: 1819769092069063907}
+  bulletSpeed: 15
+  shootingTime: 0.5
+  shootingDelay: 0.5
+  armPoint: {fileID: 1819769092069063907}
   rb: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &1819769093702054676

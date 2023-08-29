@@ -11,6 +11,7 @@ public class EnemyChase : EnemyState
         if (Vector2.Distance(controller.transform.position, controller.target.position) < attackDistance)
         {
             controller.animator.SetBool("Attack", true);
+            controller.InvokeRepeating("HandleShooting", controller.shootingTime, controller.shootingDelay);
             return controller.attack;
         }
 
@@ -22,4 +23,5 @@ public class EnemyChase : EnemyState
 
         return this;
     }
+
 }

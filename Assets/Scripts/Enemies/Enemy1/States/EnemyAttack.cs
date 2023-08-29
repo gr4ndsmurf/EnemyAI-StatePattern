@@ -15,6 +15,7 @@ public class EnemyAttack : EnemyState
         {
             controller.animator.SetBool("Chase", true);
             controller.animator.SetBool("Attack", false);
+            controller.CancelInvoke("HandleShooting");
             return controller.chase;
         }
 
@@ -45,18 +46,7 @@ public class EnemyAttack : EnemyState
         controller.transform.up = Vector3.Lerp(controller.transform.up, direction, controller.damping);
 
         //Attack
-        if (shootingDelayed == false)
-        {
-            shootingDelayed = true;
-            Instantiate(controller.bullet, controller.gunPoint.position, controller.transform.rotation);
-            StartCoroutine(shootingCooldown());
-        }
-        return this;
-    }
 
-    IEnumerator shootingCooldown()
-    {
-        yield return new WaitForSeconds(1f);
-        shootingDelayed = false;
+        return this;
     }
 }

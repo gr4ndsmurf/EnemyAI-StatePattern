@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 6159698060847297178}
   - component: {fileID: 6159698060847297177}
   m_Layer: 0
-  m_Name: gunPoint
+  m_Name: armPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -524,8 +524,13 @@ MonoBehaviour:
   aiPath: {fileID: 6159698060977564687}
   aiDestinationSetter: {fileID: 6159698060977564680}
   damping: 0.01
-  bullet: {fileID: 3183704568916462335, guid: e704de47854e4e046894ed0248e4921c, type: 3}
-  gunPoint: {fileID: 6159698060847297178}
+  POOL_SIZE: 10
+  bulletPrefab: {fileID: 3183704568916462335, guid: e704de47854e4e046894ed0248e4921c, type: 3}
+  firePointTransform: {fileID: 6159698060847297178}
+  bulletSpeed: 15
+  shootingTime: 0.25
+  shootingDelay: 0.25
+  armPoint: {fileID: 6159698060847297178}
 --- !u!114 &6159698060977564724
 MonoBehaviour:
   m_ObjectHideFlags: 0

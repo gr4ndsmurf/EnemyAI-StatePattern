@@ -6,14 +6,13 @@ public class Enemy2Attack : Enemy2State
 {
     [SerializeField] private float shootingRange = 7f;
     [SerializeField] private Transform movebackPoint;
-
-    private bool shootingDelayed;
     public override Enemy2State State(Enemy2Controller controller)
     {
         if (Vector2.Distance(controller.transform.position, controller.target.position) > shootingRange)
         {
             controller.animator.SetBool("Chase", true);
             controller.animator.SetBool("Attack", false);
+            controller.CancelInvoke("HandleShooting");
             return controller.chase;
         }
 
@@ -36,13 +35,6 @@ public class Enemy2Attack : Enemy2State
 
         WeaponAiming(controller);
 
-        //Shooting
-        if (shootingDelayed == false)
-        {
-            shootingDelayed = true;
-            Instantiate(controller.bullet, controller.gunPoint.position, controller.transform.rotation);
-            StartCoroutine(shootingCooldown());
-        }
 
         return this;
     }
@@ -50,11 +42,11 @@ public class Enemy2Attack : Enemy2State
     private void WeaponAiming(Enemy2Controller controller)
     {
         //Weapon Aim
-        Vector2 direction = new Vector2(controller.target.transform.position.x - controller.gunPoint.transform.position.x, controller.target.transform.position.y - controller.gunPoint.transform.position.y);
-        controller.gunPoint.transform.right = Vector3.Lerp(controller.gunPoint.transform.right, direction, controller.damping);
+        Vector2 direction = new Vector2(controller.target.transform.position.x - controller.armPoint.transform.position.x, controller.target.transform.position.y - controller.armPoint.transform.position.y);
+        controller.armPoint.transform.right = Vector3.Lerp(controller.armPoint.transform.right, direction, controller.damping);
         //Flip weapon
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Vector3 armPointLocalScale = controller.gunPoint.transform.localScale;
+        Vector3 armPointLocalScale = controller.armPoint.transform.localScale;
         if (angle > 90 || angle < -90)
         {
             armPointLocalScale.x = -0.8f;
@@ -66,12 +58,6 @@ public class Enemy2Attack : Enemy2State
             armPointLocalScale.x = +0.8f;
             armPointLocalScale.y = +0.14f;
         }
-        controller.gunPoint.transform.localScale = armPointLocalScale;
-    }
-
-    IEnumerator shootingCooldown()
-    {
-        yield return new WaitForSeconds(1f);
-        shootingDelayed = false;
+        controller.armPoint.transform.localScale = armPointLocalScale;
     }
 }

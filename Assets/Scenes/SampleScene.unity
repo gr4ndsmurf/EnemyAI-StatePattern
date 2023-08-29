@@ -1135,10 +1135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soldier
       objectReference: {fileID: 0}
-    - target: {fileID: 1819769092552420518, guid: 77388208ec9ed6144a491962756dbf8c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1819769092552420519, guid: 77388208ec9ed6144a491962756dbf8c, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1255,6 +1251,10 @@ PrefabInstance:
     - target: {fileID: 6159698061518264878, guid: b677edaa6ee6ccd46aa2d6f49477ed10, type: 3}
       propertyPath: m_Name
       value: Drone
+      objectReference: {fileID: 0}
+    - target: {fileID: 6159698061518264878, guid: b677edaa6ee6ccd46aa2d6f49477ed10, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b677edaa6ee6ccd46aa2d6f49477ed10, type: 3}
