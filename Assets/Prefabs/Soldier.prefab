@@ -626,7 +626,7 @@ Rigidbody2D:
   m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 3
-  m_Material: {fileID: 6200000, guid: 504752e94be524046b117ee031a1674c, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
   chase: {fileID: 1819769093275783513}
   attack: {fileID: 1819769092263983840}
   target: {fileID: 0}
-  activateDistance: 50
+  activateDistance: 750
   pathUpdateSeconds: 0.5
   speed: 3
   idleSpeed: 3

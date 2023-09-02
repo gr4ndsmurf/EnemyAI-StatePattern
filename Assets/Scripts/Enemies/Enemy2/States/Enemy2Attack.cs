@@ -35,7 +35,6 @@ public class Enemy2Attack : Enemy2State
 
         WeaponAiming(controller);
 
-
         return this;
     }
 
@@ -43,21 +42,44 @@ public class Enemy2Attack : Enemy2State
     {
         //Weapon Aim
         Vector2 direction = new Vector2(controller.target.transform.position.x - controller.armPoint.transform.position.x, controller.target.transform.position.y - controller.armPoint.transform.position.y);
-        controller.armPoint.transform.right = Vector3.Lerp(controller.armPoint.transform.right, direction, controller.damping);
-        //Flip weapon
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        controller.armPoint.transform.right = direction;
+
+        //Flip NEW
         Vector3 armPointLocalScale = controller.armPoint.transform.localScale;
-        if (angle > 90 || angle < -90)
+        Vector3 controllerLocalScale = controller.transform.localScale;
+        if (controller.target.transform.position.x <= controller.transform.position.x)
         {
             armPointLocalScale.x = -0.8f;
             armPointLocalScale.y = -0.14f;
+            controllerLocalScale.x = -1f;
         }
-        else
+        if (controller.target.transform.position.x > controller.transform.position.x)
         {
-
             armPointLocalScale.x = +0.8f;
             armPointLocalScale.y = +0.14f;
+            controllerLocalScale.x = +1f;
         }
         controller.armPoint.transform.localScale = armPointLocalScale;
+        controller.transform.localScale = controllerLocalScale;
     }
 }
+
+//Flip weapon OLD
+/*float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+Vector3 armPointLocalScale = controller.armPoint.transform.localScale;
+Vector3 controllerLocalScale = controller.transform.localScale;
+if (angle > 90 || angle < -90)
+{
+    armPointLocalScale.x = -0.8f;
+    armPointLocalScale.y = -0.14f;
+    controllerLocalScale.x = -1f;
+}
+else
+{
+
+    armPointLocalScale.x = +0.8f;
+    armPointLocalScale.y = +0.14f;
+    controllerLocalScale.x = +1f;
+}
+controller.armPoint.transform.localScale = armPointLocalScale;
+controller.transform.localScale = controllerLocalScale;*/
